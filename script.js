@@ -30,6 +30,53 @@ if (menuToggle && mobileNav) {
   });
 }
 
+// Hero showcase carousel (style preview slides)
+const showcase = document.getElementById('hero-showcase');
+if (showcase) {
+  const slides = [...showcase.querySelectorAll('.hero-slide')];
+  const dotsWrap = showcase.querySelector('.hero-showcase-dots');
+  const prevBtn = showcase.querySelector('.hero-showcase-arrow.prev');
+  const nextBtn = showcase.querySelector('.hero-showcase-arrow.next');
+  let active = 0;
+  let timer = null;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', `Show slide ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = [...dotsWrap.children];
+
+  function goTo(index) {
+    active = (index + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === active));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
+  }
+
+  function startAutoplay() {
+    if (reducedMotion) return;
+    stopAutoplay();
+    timer = setInterval(() => goTo(active + 1), 4500);
+  }
+  function stopAutoplay() {
+    if (timer) clearInterval(timer);
+  }
+
+  prevBtn.addEventListener('click', () => { goTo(active - 1); startAutoplay(); });
+  nextBtn.addEventListener('click', () => { goTo(active + 1); startAutoplay(); });
+  showcase.addEventListener('mouseenter', stopAutoplay);
+  showcase.addEventListener('mouseleave', startAutoplay);
+  showcase.addEventListener('focusin', stopAutoplay);
+  showcase.addEventListener('focusout', startAutoplay);
+
+  goTo(0);
+  startAutoplay();
+}
+
 // Scroll-reveal animations
 const revealEls = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window && revealEls.length) {

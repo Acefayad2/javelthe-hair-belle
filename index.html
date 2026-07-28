@@ -49,9 +49,17 @@
 <!-- NAV -->
 <header class="site-header" id="header">
   <div class="container header-inner">
-    <a href="#top" class="logo" aria-label="Javel the Hair Belle home">
-      <img src="assets/logo.svg" alt="Javel the Hair Belle" width="220" height="57">
+    <a href="#top" class="brand" aria-label="Javel the Hair Belle home">
+      <span class="brand-badge" aria-hidden="true">J</span>
+      <span class="brand-text">
+        <span class="brand-name">Javel</span>
+        <span class="brand-sub">the hair belle</span>
+      </span>
     </a>
+
+    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
 
     <nav class="main-nav" aria-label="Primary">
       <a href="#about">About</a>
@@ -59,14 +67,8 @@
       <a href="#gallery">Gallery</a>
       <a href="#policies">Policies</a>
       <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
+      <a href="#book" class="nav-cta">Book</a>
     </nav>
-
-    <a href="#book" class="btn btn-primary header-cta">Book Now</a>
-
-    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
@@ -84,8 +86,6 @@
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-  <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
   <div class="container hero-inner">
     <p class="eyebrow reveal">Braids &middot; Locs &middot; Twists &middot; Weaves</p>
     <h1 class="reveal d1">Beautiful hair,<br><em>made for you.</em></h1>
@@ -94,20 +94,56 @@
       <a href="#book" class="btn btn-primary btn-lg">Book an Appointment</a>
       <a href="#services" class="btn btn-ghost btn-lg">View Services</a>
     </div>
-    <ul class="hero-chips reveal d4" aria-label="Highlights">
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        12+ styles bookable
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Flexible booking hours
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        No deposit required
-      </li>
-    </ul>
+
+    <div class="hero-showcase reveal d4" id="hero-showcase" aria-roledescription="carousel" aria-label="Style highlights">
+      <div class="hero-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 6"><span>Knotless Braids</span></div>
+      <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 6"><span>Soft Locs</span></div>
+      <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 6"><span>Sew In</span></div>
+      <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="4 of 6"><span>Island Twists</span></div>
+      <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="5 of 6"><span>Cornrows</span></div>
+      <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="6 of 6"><span>Boho Braids</span></div>
+
+      <button type="button" class="hero-showcase-arrow prev" aria-label="Previous style">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button type="button" class="hero-showcase-arrow next" aria-label="Next style">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="hero-showcase-dots" role="tablist" aria-label="Choose slide"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST CARDS -->
+<section class="trust-cards">
+  <div class="container trust-grid">
+    <div class="trust-card reveal">
+      <h3>Good to Know</h3>
+      <ul>
+        <li>Cancel or reschedule <strong>2 days ahead</strong></li>
+        <li>Come <strong>washed &amp; blow-dried</strong>, product-free</li>
+        <li>Bring enough hair for your style</li>
+        <li><strong>Flexible hours</strong> &mdash; book what works for you</li>
+      </ul>
+    </div>
+    <div class="trust-card reveal d1">
+      <h3>Add-Ons</h3>
+      <ul class="addon-chips">
+        <li>Boho</li>
+        <li>Back Length</li>
+        <li>Waist Length</li>
+        <li>Butt Length</li>
+      </ul>
+    </div>
+    <div class="trust-card reveal d2">
+      <h3>Payments</h3>
+      <ul>
+        <li><strong>No deposit</strong> &mdash; pay at your appointment</li>
+        <li>Zelle</li>
+        <li>Cash App</li>
+        <li>Cash accepted</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -119,21 +155,29 @@
   </div>
 </div>
 
-<!-- ABOUT -->
+<!-- ABOUT / ARTIST -->
 <section class="section about" id="about">
-  <div class="container about-grid">
-    <div class="about-media reveal">
-      <div class="about-card">
-        <span class="about-initial" aria-hidden="true">J</span>
-        <p class="about-handle">@javelthehairbelle</p>
+  <div class="container">
+    <p class="eyebrow reveal center">Meet your stylist</p>
+    <div class="artist-card reveal d1">
+      <div class="artist-head">
+        <span class="artist-avatar" aria-hidden="true">J</span>
+        <div>
+          <h2 class="artist-name">Hi, I&rsquo;m <em>Javel</em> — the Hair Belle.</h2>
+          <p class="artist-handle">@javelthehairbelle</p>
+        </div>
       </div>
-    </div>
-    <div class="about-copy">
-      <p class="eyebrow reveal">Meet your stylist</p>
-      <h2 class="reveal d1">Hi, I&rsquo;m <em>Javel</em> — the Hair Belle.</h2>
-      <p class="reveal d2">I specialize in hair styling catered toward Black hair: protective styles that look stunning and keep your hair healthy underneath. Braids, locs, twists, weaves: every appointment gets my full attention, from prep to the final touch.</p>
-      <p class="reveal d3">You&rsquo;re the client: your comfort and your satisfaction come first. If anything isn&rsquo;t exactly how you want it, tell me and I&rsquo;ll make it right.</p>
-      <blockquote class="about-quote reveal d4">&ldquo;Please communicate if you are dissatisfied with my service so I can accommodate your wants and needs — you are the client!&rdquo;</blockquote>
+      <div class="about-copy">
+        <p>I specialize in hair styling catered toward Black hair: protective styles that look stunning and keep your hair healthy underneath. Braids, locs, twists, weaves: every appointment gets my full attention, from prep to the final touch.</p>
+        <p>You&rsquo;re the client: your comfort and your satisfaction come first. If anything isn&rsquo;t exactly how you want it, tell me and I&rsquo;ll make it right.</p>
+      </div>
+      <ul class="pill-row" aria-label="Specialties">
+        <li>Knotless Braids</li>
+        <li>Soft Locs</li>
+        <li>Sew In</li>
+        <li>Twists</li>
+      </ul>
+      <blockquote class="about-quote">&ldquo;Please communicate if you are dissatisfied with my service so I can accommodate your wants and needs — you are the client!&rdquo;</blockquote>
     </div>
   </div>
 </section>
@@ -188,30 +232,7 @@
       </div>
     </div>
 
-    <div class="addons reveal">
-      <h3>Add-ons</h3>
-      <ul class="addon-chips">
-        <li>Boho</li>
-        <li>Back Length</li>
-        <li>Waist Length</li>
-        <li>Butt Length</li>
-      </ul>
-    </div>
-
-    <div class="payment-strip reveal">
-      <div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        <p><strong>No deposit needed.</strong> Pay at your appointment.</p>
-      </div>
-      <div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <p>Accepted: <strong>Zelle &middot; Cash App &middot; Cash</strong></p>
-      </div>
-      <div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <p><strong>Flexible hours.</strong> Book the time that works for you.</p>
-      </div>
-    </div>
+    <p class="services-note reveal">Add-ons (Boho, Back / Waist / Butt Length), payment options and hours are on the card right below the top style preview &mdash; and again when you book.</p>
   </div>
 </section>
 
@@ -467,7 +488,19 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <img src="assets/logo.svg" alt="Javel the Hair Belle" class="footer-logo" width="180" height="47">
+    <p class="footer-thanks">
+      <span class="script">Thank you</span>
+      <span class="caps">for booking</span>
+    </p>
+    <p class="footer-brand">Javel the Hair Belle</p>
+    <div class="footer-social">
+      <a href="https://instagram.com/javelthehairbelle" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://tiktok.com/@javelthehairbelle" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4v10.5a3.5 3.5 0 1 1-3-3.46" /><path d="M14 4c.5 3 2.5 5 6 5.2"/></svg>
+      </a>
+    </div>
     <p>&copy; <span id="year"></span> Javel the Hair Belle &middot; Styling Black hair with love &middot; DC &middot; MD &middot; VA</p>
   </div>
 </footer>
