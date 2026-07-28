@@ -30,6 +30,19 @@ if (menuToggle && mobileNav) {
   });
 }
 
+// Service list "Book" buttons: pre-select the style in the booking form
+document.querySelectorAll('.service-list .btn-book').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const service = document.getElementById('f-service');
+    if (service) {
+      service.value = btn.dataset.service;
+      service.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    document.getElementById('book')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('f-name')?.focus({ preventScroll: true });
+  });
+});
+
 // Hero showcase carousel (style preview slides)
 const showcase = document.getElementById('hero-showcase');
 if (showcase) {
