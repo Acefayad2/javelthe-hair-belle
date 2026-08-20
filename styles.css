@@ -757,7 +757,7 @@ p{ text-wrap:pretty; }
 .hero-proof span{font-size:.78rem;color:var(--ink-soft);}
 .hero-visual{position:relative;margin:0;min-height:660px;}
 .hero-visual::before{content:"";position:absolute;inset:30px -36px -30px 42px;background:var(--peach);z-index:-1;}
-.hero-visual img{width:100%;height:660px;object-fit:cover;object-position:center;border-radius:0;filter:saturate(.88) contrast(1.03);}
+.hero-visual img{width:100%;height:660px;object-fit:cover;object-position:center 46%;border-radius:0;filter:saturate(.9) contrast(1.02);}
 .hero-visual figcaption{position:absolute;left:-28px;bottom:30px;background:var(--cream);padding:18px 24px;min-width:220px;border-left:4px solid var(--pink-deep);box-shadow:var(--shadow-md);}
 .hero-visual figcaption span{display:block;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);}
 .hero-visual figcaption strong{display:block;font-family:var(--font-display);font-size:1.45rem;font-weight:400;}
@@ -790,11 +790,17 @@ p{ text-wrap:pretty; }
 .services-note{text-align:left;max-width:680px;margin:34px 0 0;border-left:3px solid var(--pink-deep);padding-left:18px;}
 
 .gallery{background:var(--cream);}
-.lookbook-grid{display:grid;grid-template-columns:1.3fr .85fr;grid-template-rows:repeat(2,minmax(300px,430px));gap:18px;}
+.lookbook-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:230px;gap:18px;}
 .lookbook-card{position:relative;margin:0;overflow:hidden;background:var(--ink);}
-.lookbook-card.lookbook-wide{grid-row:1/-1;}
-.lookbook-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .5s;filter:saturate(.82);}
-.lookbook-card:hover img{transform:scale(1.025);filter:saturate(1);}
+.lookbook-card{grid-column:span 4;}
+.lookbook-card.lookbook-feature{grid-column:span 7;grid-row:span 2;}
+.lookbook-card.lookbook-reel{grid-column:span 5;grid-row:span 2;}
+.lookbook-card img,.lookbook-card video{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .5s;filter:saturate(.88);}
+.lookbook-card:nth-child(3) img{object-position:center 42%;}
+.lookbook-card:nth-child(4) img{object-position:center 44%;}
+.lookbook-card:nth-child(5) img{object-position:center 36%;}
+.lookbook-card:nth-child(6) img{object-position:center 32%;}
+.lookbook-card:hover img,.lookbook-card:hover video{transform:scale(1.025);filter:saturate(1);}
 .lookbook-card figcaption{position:absolute;inset:auto 0 0;padding:54px 24px 22px;color:#fff;background:linear-gradient(transparent,rgba(44,23,23,.88));display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:end;}
 .lookbook-card figcaption span{font-size:.65rem;letter-spacing:.16em;}
 .lookbook-card figcaption strong{font-family:var(--font-display);font-size:1.55rem;font-weight:400;}
@@ -887,10 +893,12 @@ input[type="file"]::file-selector-button{background:var(--ink);border-radius:0;}
   .service-group,.service-group:nth-child(2){display:block;padding:30px 0;}
   .service-group h3{margin-bottom:18px;}
   .service-list li{flex-direction:row;align-items:center;}
-  .lookbook-grid{grid-template-columns:1fr;grid-template-rows:520px 430px 430px;}
-  .lookbook-card.lookbook-wide{grid-row:auto;}
+  .lookbook-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:390px;}
+  .lookbook-card,.lookbook-card.lookbook-feature,.lookbook-card.lookbook-reel{grid-column:span 1;grid-row:span 1;}
+  .lookbook-card.lookbook-feature{grid-column:1/-1;height:560px;}
   .artist-card{grid-template-columns:1fr;padding:36px 26px;}
   .pill-row,.about-quote{grid-column:auto;}
+  .booking-grid{grid-template-columns:1fr;gap:46px;}
   .booking-intro{position:static;}
 }
 
@@ -901,7 +909,9 @@ input[type="file"]::file-selector-button{background:var(--ink);border-radius:0;}
   .hero-proof div+div{border-left:0;padding-left:0;border-top:1px solid var(--border);margin-top:14px;}
   .studio-notes-grid{grid-template-columns:1fr;}
   .studio-notes p+p,.studio-notes p:nth-child(3){border-left:0;border-top:1px solid var(--border);}
-  .lookbook-grid{grid-template-rows:430px 380px 380px;}
+  .lookbook-grid{grid-template-columns:1fr;grid-auto-rows:390px;}
+  .lookbook-card,.lookbook-card.lookbook-feature,.lookbook-card.lookbook-reel{grid-column:1;grid-row:auto;height:auto;}
+  .lookbook-card.lookbook-feature{height:470px;}
   .lookbook-card figcaption{grid-template-columns:auto 1fr;}
   .lookbook-card .btn-book{grid-column:2;justify-self:start;}
   .policy-grid{grid-template-columns:1fr;}
