@@ -30,8 +30,8 @@ if (menuToggle && mobileNav) {
   });
 }
 
-// Service list "Book" buttons: pre-select the style in the booking form
-document.querySelectorAll('.service-list .btn-book').forEach((btn) => {
+// Style links: pre-select the service and move into the inquiry form
+document.querySelectorAll('.btn-book[data-service]').forEach((btn) => {
   btn.addEventListener('click', () => {
     const service = document.getElementById('f-service');
     if (service) {
@@ -42,53 +42,6 @@ document.querySelectorAll('.service-list .btn-book').forEach((btn) => {
     document.getElementById('f-name')?.focus({ preventScroll: true });
   });
 });
-
-// Hero showcase carousel (style preview slides)
-const showcase = document.getElementById('hero-showcase');
-if (showcase) {
-  const slides = [...showcase.querySelectorAll('.hero-slide')];
-  const dotsWrap = showcase.querySelector('.hero-showcase-dots');
-  const prevBtn = showcase.querySelector('.hero-showcase-arrow.prev');
-  const nextBtn = showcase.querySelector('.hero-showcase-arrow.next');
-  let active = 0;
-  let timer = null;
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  slides.forEach((slide, i) => {
-    const dot = document.createElement('button');
-    dot.type = 'button';
-    dot.setAttribute('role', 'tab');
-    dot.setAttribute('aria-label', `Show slide ${i + 1}`);
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
-  });
-  const dots = [...dotsWrap.children];
-
-  function goTo(index) {
-    active = (index + slides.length) % slides.length;
-    slides.forEach((s, i) => s.classList.toggle('is-active', i === active));
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
-  }
-
-  function startAutoplay() {
-    if (reducedMotion) return;
-    stopAutoplay();
-    timer = setInterval(() => goTo(active + 1), 4500);
-  }
-  function stopAutoplay() {
-    if (timer) clearInterval(timer);
-  }
-
-  prevBtn.addEventListener('click', () => { goTo(active - 1); startAutoplay(); });
-  nextBtn.addEventListener('click', () => { goTo(active + 1); startAutoplay(); });
-  showcase.addEventListener('mouseenter', stopAutoplay);
-  showcase.addEventListener('mouseleave', startAutoplay);
-  showcase.addEventListener('focusin', stopAutoplay);
-  showcase.addEventListener('focusout', startAutoplay);
-
-  goTo(0);
-  startAutoplay();
-}
 
 // Scroll-reveal animations
 const revealEls = document.querySelectorAll('.reveal');
@@ -112,6 +65,12 @@ if ('IntersectionObserver' in window && revealEls.length) {
 // Booking form: min date = today, policy agreement timestamp, submit state
 const bookingForm = document.getElementById('booking-form');
 if (bookingForm) {
+  const inquiryId = document.getElementById('f-inquiry-id');
+  if (inquiryId) {
+    const suffix = Math.random().toString(36).slice(2, 7).toUpperCase();
+    inquiryId.value = `JHB-${Date.now().toString(36).toUpperCase()}-${suffix}`;
+  }
+
   const dateInput = document.getElementById('f-date');
   if (dateInput) {
     const today = new Date();
@@ -119,15 +78,65 @@ if (bookingForm) {
     dateInput.min = today.toISOString().split('T')[0];
   }
 
-  bookingForm.addEventListener('submit', () => {
+  bookingForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
     // Proof of policy agreement: record the exact moment of submission
     const agreedAt = document.getElementById('f-agreed-at');
     if (agreedAt) agreedAt.value = new Date().toISOString();
 
     const submitBtn = document.getElementById('submit-btn');
+    const formStatus = document.getElementById('form-status');
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending your request…';
+      submitBtn.textContent = 'Sending your inquiry…';
+    }
+
+    if (formStatus) {
+      formStatus.textContent = '';
+      formStatus.classList.remove('is-error');
+    }
+
+    const formData = new FormData(bookingForm);
+    const photo = formData.get('inspiration-photo');
+    const payload = {
+      inquiryId: formData.get('inquiry-id'),
+      name: formData.get('name'),
+      phone: formData.get('phone'),
+      email: formData.get('email'),
+      service: formData.get('service'),
+      addons: formData.getAll('addons'),
+      preferredDate: formData.get('preferred-date'),
+      preferredTime: formData.get('preferred-time'),
+      notes: formData.get('notes'),
+      referralSource: formData.get('referral-source'),
+      inspirationPhotoName: photo instanceof File ? photo.name : '',
+      policiesAgreed: formData.get('policies-agreed'),
+      policiesAgreedAt: formData.get('policies-agreed-at'),
+      source: formData.get('source'),
+      botField: formData.get('bot-field')
+    };
+
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Your inquiry could not be saved.');
+
+      // Preserve Netlify Forms as a second copy (and keep the optional photo upload).
+      bookingForm.submit();
+    } catch (error) {
+      if (formStatus) {
+        formStatus.textContent = error instanceof Error ? error.message : 'Your inquiry could not be saved. Please try again.';
+        formStatus.classList.add('is-error');
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send appointment inquiry';
+      }
     }
   });
 }

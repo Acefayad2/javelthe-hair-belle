@@ -1,0 +1,16 @@
+{
+  "name": "javelthe-hair-belle",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.0.10",
+    "@netlify/functions": "^5.1.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
